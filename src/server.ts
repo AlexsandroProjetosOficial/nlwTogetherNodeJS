@@ -1,19 +1,13 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
+import 'reflect-metadata';
+import './database';
+import { router } from './routes';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.json({
-        status: 200,
-        message: 'Hello Word.'
-    });
-});
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
 
-app.post('/test-post', (req, res) => {
-    return res.json({
-        status: 200,
-        message: 'Testando rota de post.'
-    });
-});
+app.use(router);
 
 app.listen(3000, () => console.log('Server is running'));
